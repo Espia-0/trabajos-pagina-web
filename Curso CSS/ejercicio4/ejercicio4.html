@@ -8,16 +8,18 @@
         html, body{
             font-family:Arial, Helvetica, sans-serif;
             background-color: whitesmoke;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
         #cabeza{
             text-align: center;
             background-color: #4f63c4;
             color: rgb(0, 0, 0);
             box-shadow: #333 5px 5px 12px;
-            width: 100%;
+            width: 90%;
             margin: 0;
-            padding: 10px;
-            width: 100%;
+            padding: 10px 5%;
             overflow: hidden;
         }
         .logo{
@@ -30,6 +32,7 @@
         .texto {
             width:75%;
             float: left;
+            font-size: 25px;
         }
         .imagenes{
             width:15%;
@@ -39,7 +42,74 @@
             width: 49%;
             float: left;
         }
+        #cuerpo{
+            width: 95%;
+            overflow: hidden;
+            margin: 0 auto;
+            padding: 10px 2.5%;
+            background-color: white;
+        }
+        .logoBMW {
+             width:10%;
+             margin:0;
+             padding:0;
+             float: left;
+             margin-bottom: 4px;
+             
+        }
 
+        .textoBMW{
+            color:#4f63c4;
+            background-color: black;
+            width:90%;
+            margin:0;
+             padding:0;
+            float:left;
+            font-size: 50px;
+            margin-bottom: 4px;
+        }
+        .logorenault{
+            width:10%;
+             margin:0;
+             padding:0;
+             float: left;
+             margin-bottom: 4px;
+        }
+
+        .textorenault{
+            color: yellow;
+            background-color: black;
+            width:80%;
+            margin:0;
+             padding:0;
+            float:left;
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        #cuerpo img{
+            width: 100%;
+        }
+        .fila{
+            width: 100%;
+            overflow: hidden;
+        }
+        #pie{
+            width: 95%;
+            overflow: hidden;
+            margin: 0 auto;
+            padding: 10px 2.5%;
+            background-color: white;
+        }
+        .logoferrari{
+            width:10%;
+             margin:0;
+             padding:0;
+             float: left;
+             margin-bottom: 4px;
+        }
+        #pie img{
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -49,15 +119,19 @@
     <div class="imagenes"> <img src="img/MC.png" alt="Mclaren"> <img src="img/AM.png" alt="aston martin"> </div>
 </div>
     <div id="cuerpo">
-    <div class=""> <img src="img/BMW.png"> </div>
-    <div> </div>
-    <div> <img src="img/RN.png"> </div>
-    <div> texto </div>
-    <div> texto </div>
+        <div class="fila">
+            <div class="logoBMW"> <img src="img/BMW.png"> </div>
+            <div class="textoBMW"> BMW es una marca alemana que fabrica vehiculos deportivos, suvs, sedanes,etc... </div>
+        </div>
+        <div class="fila">
+            <div class="logorenault"> <img src="img/RN.png"> </div>
+            <div class="textorenault"> Renault es un fabricante francés de automóviles, vehículos comerciales y de carreras. Es la marca fundacional del Groupe Renault, un conglomerado de empresas automotrices que también incluye en su paquete accionario a las marcas Alpine, Dacia, a la vez de ser miembro mayoritario de la alianza mundial Renault-Nissan-Mitsubishi </div>
+            <div class="logorenault"> <img src="img/RN.png"> </div>
+        </div>
     </div>
 <div id="pie">
-    <div> </div>
-    <div> </div>
+    <div class="logoferrari"> <img src="img/F.jpg"> </div>
+    <div class="textoferrari"> Ferrari es un fabricante de automóviles superdeportivos con sede en Maranello, provincia de Módena, en la región de Emilia-Romaña, Italia. Esta compañía es el resultante de la idea de su fundador Enzo Ferrari de crear una marca de automóviles de turismo con prestaciones lujosas y deportivas, basándose en los éxitos obtenidos a partir de la creación de su Scuderia Ferrari de automovilismo en 1929. </div>
     <div> </div>
 </div>
 </body>
