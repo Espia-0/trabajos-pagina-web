@@ -10,6 +10,9 @@ header{
     padding: 20px;
     text-align: center;
 }
+header h1{
+    color: #000000;
+}
 nav{
     background-color: #4f4f4f;
     padding:10px;
@@ -34,7 +37,7 @@ nav a{
     margin: auto;
     min-height: 350px;
     text-align: center;
-    color:whitesmoke;
+    color:rgb(255, 255, 255);
     font-size: 30px;
     font-weight: bold;
     background-image:url(../IMG/representacion.jpg);
@@ -74,10 +77,15 @@ footer p a{
     text-decoration: none;
     color: aqua;
 }
+h1{
+    color:white;
+    text-align: center;
+}
 .videojuegosdeplaystation{
     display:flex;
-    background-color: #eef5ff;
+    background-color: #000000;
     padding: 10px;
+    color: white;
     margin-bottom: 10px;
     border:1px solid #ccc;
     flex-wrap:wrap;
@@ -87,11 +95,12 @@ footer p a{
     color: white;
     padding: 15px;
     border-radius: 15px;
-    width:200px;
+    width:300px;
+    justify-content: space-evenly;
     text-align: center;
     position: relative;
     transition:transform 0.4s ease, background-color 0.4s ease;
-    margin:10px;
+    margin:10px auto;
 }
 .videojuego:hover{
     transform: scale(1.05);
@@ -112,9 +121,29 @@ footer p a{
 }
 .precio{
     font-weight: bold;
-    color: #ffdb4d;
+    color: #18ff1c;
     margin-top:10px;
 }
 .descripcion{
     font-size: 0.9em;
+}
+.oferta{
+    position: absolute;
+    top:10px;
+    right:10px;
+    background-color: red;
+    color:white;
+    padding:4px 8px;
+    font-size: 0.8em;
+    border-radius: 4px ;
+}
+@media (max-width:768px){
+    .videojuegosdeplaystation{
+        flex-direction: column;
+        align-items: center;
+    }
+    .videojuego{
+        width:70%;
+        margin:10px 0px;
+    }
 }
