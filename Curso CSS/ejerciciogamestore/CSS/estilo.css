@@ -8,8 +8,11 @@ header{
     background-color: #ffffff;
     color:rgb(0, 0, 0);
     padding: 20px;
+    width: 100%;
+    top:0;
+    left:0;
     text-align: center;
-    animation: SlideIn 2s ease-in-out;
+    position: fixed;
 }
 header h1{
     color: #000000;
@@ -31,7 +34,7 @@ nav a{
     background-color: #050505;
     border: #ffffff;
     border-radius: 5px;
-    animation: bounce 1s infinite;
+    animation: bounce 1.5s infinite;
 }
 .banner{
     width:90%;
@@ -154,6 +157,17 @@ h1{
     }
     .videojuego img{
         width: 90%;
+    }
+    nav{
+        flex-direction: column;
+        gap:10px;
+    }
+    nav a{
+        display: block;
+        padding: 10px;
+    }
+    .header{
+        padding-top:300px;
     }
 }
 @keyframes fadeIn{
