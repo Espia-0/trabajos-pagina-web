@@ -1,0 +1,35 @@
+table,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+
+    width: 100%;
+
+}
+
+td.menu {
+
+    width: 25%;
+
+    background-color: lightyellow;
+
+}
+
+td.contenido {
+
+    width: 50%;
+
+    background-color: beige;
+
+}
+
+td.lateral {
+
+    width: 25%;
+
+    background-color: bisque;
+
+}
