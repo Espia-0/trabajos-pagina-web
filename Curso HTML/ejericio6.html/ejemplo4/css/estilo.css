@@ -1,0 +1,16 @@
+table {
+    border-style:solid;
+    border-collapse: collapse;
+    width: 80%;
+    margin: 10px;
+}
+td{
+    border-style: solid;
+    padding:5px;
+    background-color: #439483;
+}
+th { 
+    border-style:solid; 
+    padding: 5px; 
+    background-color: #223913;
+}
