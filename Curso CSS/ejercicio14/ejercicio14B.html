@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 14.2 </title>
+    <style>
+        .layout{
+            display: grid;
+            grid-template-areas: 
+            "header header"
+            "nav main"
+            "footer footer";
+            grid-template-columns: 1fr 3fr;
+            grid-template-rows: auto 1fr auto;
+            gap:20px;
+        }
+        header{grid-area: header;
+            background-color: #66d77b;
+        }
+        nav{grid-area: nav;
+        background-color: rgb(186, 8, 169);
+        }
+        main{
+            grid-area: main;
+            display:flex;
+            gap: 1rem;
+            background-color: #0284ee;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        footer{
+            grid-area:footer;
+            background-color: #748043;
+        }
+        .producto{
+            flex: 1 1 200px;
+            background-color: #d77866;
+            padding: 1rem;
+        }
+            
+
+    </style>
+</head>
+<body>
+     <div class="layout">
+        <header> Encabezado </header>
+        <nav> menu </nav>
+        <main class="contenido"> 
+            <section class="producto"> producto 1 </section> 
+            <section class="producto"> producto 2 </section> 
+            <section class="producto"> producto 3 </section> 
+        </main>
+        <footer> pie de pagina </footer>
+     </div>
+</body>
+</html>

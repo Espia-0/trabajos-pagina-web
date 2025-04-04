@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 14.3</title>
+    <style>
+        :root{
+           --primario: #b33f27;
+           --secundario: #d77866;
+           --oscuro: #4d1b11;
+           --claro:#f7f7f7;    
+        }
+        body{
+            margin:0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--claro);
+            color:#222;
+        }
+        .grid-contenedor{
+            display:grid;
+            grid-template-columns: 200px 1fr 1fr;
+            grid-template-rows: auto auto 1fr 1fr;
+            grid-template-areas: 
+            "header header header"
+            "banner banner banner"
+            "nav main sidebar"
+            "nav galeria sidebar"
+            "footer footer footer";
+            gap:20px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        header{
+            grid-area:header;
+            background-color: var(--primario);
+            color:white;
+            padding:20px;
+            text-align: center;
+            animation: fadein 1s ease-in-out;
+        }
+        .subtitulo{
+            font-weight: 300;
+            margin-top: 5px;
+        }
+        .banner{
+            grid-area: banner;
+            background: url("Banner.jpg") no-repeat center;
+            background-size: cover;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            animation: fadein 1s ease-in-out;
+        }
+        .banner-text{
+            font-size: 2rem;
+            color:white;
+            background-color: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 8px;
+            animation: slidein 1.5s ease-in-out;
+        }
+        nav{
+            grid-area: nav;
+            background: var(--oscuro);
+            color:white;
+            padding: 20px;
+            animation: fadein 1s ease-in-out;
+        }
+        nav ul{
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li{
+            margin-bottom: 10px;
+        }
+        nav ul li a{
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        nav ul li a:hover{
+            color:var(--secundario)
+        }
+        main{
+            grid-area: main;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        main img{
+            max-width:100%;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .sidebar{
+            grid-area:sidebar;
+            background-color: var(--secundario);
+            color:white;
+            padding: 20px;
+        }
+        .sidebar ul{
+            padding-left: 15px;
+        }
+        .galeria{
+            grid-area: galeria;
+            background-color: var(--primario);
+            color:white;
+            padding:20px;
+        }
+        .galeria-imgs{
+            display: flex;
+            gap:10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .galeria-imgs img{
+            width:48%;
+            max-width: 400px;
+            border-radius: 8px;
+            animation: fade in 1.5s ease;
+        }
+        footer{
+            grid-area: footer;
+            background-color: var(--oscuro);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-contenedor">
+       <header> <h1>arquitectura Blog </h1> 
+       <p class="subtitulo"> insipiracion y diseño contemporaneo </p>
+    </header> 
+       <div class="banner">
+        <h2 cllass="banner-text"> Explora la arquitectura moderna </h2>
+       </div>
+       <nav>
+        <ul>
+            <li> <a href=#> Inicio</a></li>
+            <li> <a href=#> Proyecto </a></li>
+            <li> <a href=#> Blog </a></li>
+            <li> <a href=#> Galeria</a></li>
+            <li> <a href=#> Contacto</a></li>
+        </ul>
+       </nav>
+       <main>
+        <h2> proyecto destacado: casa horizonte </h2>
+        <img src="casa1.jpg">
+        <p> La Casa horizonte es una obra minimalista ubidaca en lorem impsun euques dywud ehhdsib dhhewduas etdgs eiueddnfre fudsgibewdui sguegfdhsbme dydstheh hudiskrh iowkshe fewuidhijsdb ewp`dodsopd TRTREBG SGHJgdauiegd  sdggdsgghjdf byuidfsgjdfsg dggfdygsdguwfeyguf </p>
+       </main>
+       <aside class="sidebar">
+        <h3> 📰 ultimas noticias 📰 </h3>
+        <ul>
+            <li> <strong>05/04:</strong> nuevas normativas energeticas</li>
+            <li> <strong>06/04:</strong> nuevas normativas energeticas</li>
+            <li> <strong>07/04:</strong> nuevas normativas energeticas</li>
+            <li> <strong>08/04:</strong> nuevas normativas energeticas</li>
+            <li> <strong>09/04:</strong> nuevas normativas energeticas</li>
+            <li> <strong>10/04:</strong> nuevas normativas energeticas</li>
+        </ul>
+       </aside>
+      <section class="galeria"> 
+        <h3> 📸 Galeria de foots</h3>
+        <div class="galeria-imgs">
+        <img src="casa1.jpg">
+        <img src="casa1.jpg">
+        <img src="casa1.jpg">
+        <img src="casa1.jpg">
+    </div>
+      </section>
+      <footer> &copy; arquiBlog diseño y arquitectura con pasion </footer>
+    </div>
+
+</body>
+</html>
