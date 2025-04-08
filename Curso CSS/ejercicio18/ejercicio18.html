@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ejercicio18 </title>
+    <style>
+     *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+     }
+     body{
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        background-color: #111;
+     }
+     .slider{
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 400px;
+        overflow: hidden;
+     }
+     input[type="radio"]{
+        display: none;
+     }
+     .slides{
+        display: flex;
+        width: 300%;
+        height: 100%;
+        transition: transform 0.9s ease-in-out;
+     }
+     .slide{
+        width: 33.33%;
+        flex-shrink: 0;
+        position: relative;
+     }
+     .slide img{
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       display: flex;
+     }
+     .caption{
+      position: absolute;
+      bottom: 20%;
+      left: 10%;
+      color:white;
+      padding: 10px;
+      border-radius: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      animation: fade-in 1.4s ease-out;
+     }
+     .caption h2{
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+     }
+     .caption p{
+      font-size: 1rem;
+     }
+     #slide1:checked ~ .slides {
+       transform: translateX(0%);
+     }
+     #slide2:checked ~ .slides {
+       transform: translateX(-33.33%);
+     }
+     #slide3:checked ~ .slides {
+       transform: translateX(-66.66%);
+     }
+     .nav-arrows{
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+     }
+     .arrow{
+      font-size: 2.5rem;
+      color:rgb(8, 8, 8);
+      pointer-events: all;
+      cursor: pointer;
+      padding: 0px 15px;
+      user-select: none;
+      transition: color 0.25s;
+     }
+     .arrow:hover{
+      color: #ff5722;
+     }
+     #slide1:checked ~ .nav-arrows label:nth-child(1),
+     #slide1:checked ~ .nav-arrows label:nth-child(2) {
+      display: block;
+     }
+     #slide2:checked ~ .nav-arrows label:nth-child(3),
+     #slide2:checked ~ .nav-arrows label:nth-child(4) {
+      display: block;
+     }
+     #slide3:checked ~ .nav-arrows label:nth-child(5),
+     #slide3:checked ~ .nav-arrows label:nth-child(6) {
+      display: block;
+     }
+     .nav-arrows label{
+      display: none;
+     }
+    </style>
+</head>
+<body>
+    <section class="slider">
+        <input type="radio" name="slider" id="slide1" checked>
+        <input type="radio" name="slider" id="slide2">
+        <input type="radio" name="slider" id="slide3">
+
+    <div class="slides">
+        <div class="slide s1">
+         <img src="../ejercicio13/mesa.jpg">
+         <div class="caption">
+           <h2> alta calidad </h2>
+            <p> piezas resistentes y duraderas para tu mesita de madera </p>
+         </div>
+        </div>
+        <div class="slide s2"></div>
+        <img src="../ejercicio13/silla.jpg">
+         <div class="caption">
+            <h2> silla moderna </h2>
+            <p> comoda y sencilla </p>
+         </div>
+        <div class="slide s3"></div>
+        <img src="../ejercicio13/sofa.jpg">
+         <div class="caption">
+            <h2> sofa normal y perfecto </h2>
+            <p> para todo tipo de personas </p>
+         </div>
+    </div>
+
+    <div class="nav-arrows">
+        <label for="slide1" class="arrow prev"> &#10094; </label>
+        <label for="slide1" class="arrow next"> &#10095; </label>
+
+        <label for="slide1" class="arrow prev"> &#10094; </label>
+        <label for="slide1" class="arrow next"> &#10095; </label>
+
+        <label for="slide1" class="arrow prev"> &#10094; </label>
+        <label for="slide1" class="arrow next"> &#10095; </label>
+    </div>
+</section>
+</body>
+</html>
