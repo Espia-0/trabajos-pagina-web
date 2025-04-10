@@ -1,0 +1,25 @@
+/* Estilos para escritorio */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #01579b; /* Azul oscuro */
+    padding: 20px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: #0277bd; /* Azul vibrante */
+}
+
+nav ul li a {
+    color: white;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #004c8c; /* Azul más oscuro */
+}

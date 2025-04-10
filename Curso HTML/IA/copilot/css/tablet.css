@@ -1,0 +1,15 @@
+/* Estilos para tableta */
+nav ul {
+    justify-content: space-around;
+}
+
+main {
+    background-color: #b3e5fc; /* Azul muy claro */
+    padding: 20px;
+}
+
+section {
+    border: 1px solid #0288d1; /* Azul medio */
+    margin-bottom: 15px;
+    padding: 10px;
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diseño Gráfico Creativo</title>
+  <style>
+    /* Variables de color por defecto (Tema claro) */
+    :root {
+      --fondo-principal: #f0f0f0;
+      --color-texto: #f7f5f5;
+      --color-texto-hero:black;
+      --color-header-footer: #03ff29;
+      --background-hero:#03ff29;
+      --color-boton: white;
+      --color-hover-boton: #333;
+      --color-header-text: white;
+    }
+    /* Variables para el Tema Oscuro */
+    body.oscuro {
+      --fondo-principal: #181818;
+      --color-texto: #000000;
+      --color-texto-hero:rgb(255, 255, 255);
+      --color-boton: white;
+      --color-hover-boton: #333;
+      --background-hero:#b40054;
+      --color-header-footer: #b40054;
+      --color-header-text: white;
+    }
+    /* Reset general */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      display: grid;
+      grid-template-areas: 
+        "header"
+        "nav"
+        "main"
+        "footer";
+      grid-template-rows: auto 50px 1fr auto;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: var(--fondo-principal);
+      color: var(--color-texto);
+    }
+    header {
+      grid-area: header;
+      background-color: var(--color-header-footer);
+      color: var(--color-header-text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+    header .logo {
+      font-size: 1.8rem;
+    }
+    main {
+      grid-area: main;
+      padding: 20px;
+      color: var(--color-texto-hero);
+    }
+    .hero {
+      background: var(--background-hero);
+      padding: 50px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      color: var(--color-texto);
+    }
+    .hero p {
+      font-size: 1.2rem;
+    }
+    .about {
+      margin-top: 40px;
+      text-align: center;
+    }
+    footer {
+      grid-area: footer;
+      background-color: var(--color-header-footer);
+      color: var(--color-header-text);
+      text-align: center;
+      padding: 10px;
+    }
+    .theme-toggle {
+      cursor: pointer;
+      background-color: transparent;
+      color: var(--color-boton);
+      padding: 8px 12px;
+      border: 2px solid var(--color-boton);
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--color-hover-boton);
+      color: var(--color-texto);
+      transition: all 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Diseño Creativo</div>
+    <!-- Botón para cambiar tema -->
+    <button id="cambio-tema" class="theme-toggle">🌙 Cambiar Tema</button>
+  </header>
+
+  <main class="main-content">
+    <section class="hero">
+      <h1>Diseño que inspira</h1>
+      <p>Explora nuestro portafolio de proyectos gráficos para marcas, identidades visuales y más.</p>
+    </section>
+
+    <section class="about">
+      <h2>Sobre Nosotros</h2>
+      <p>Somos un estudio de diseño gráfico apasionado por crear experiencias visuales únicas. Desde logos hasta campañas completas, hacemos que tu marca se vea increíble.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Diseño Creativo | Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Obtener el botón de cambio de tema
+    const cambiotema = document.getElementById('cambio-tema');
+
+    // Agregar un event listener al botón para que al hacer clic cambie el tema
+    cambiotema.addEventListener('click', () => {
+      // Alternar la clase 'oscuro' en el body para cambiar el tema
+      document.body.classList.toggle('oscuro');
+    });
+  </script>
+</body>
+</html>   

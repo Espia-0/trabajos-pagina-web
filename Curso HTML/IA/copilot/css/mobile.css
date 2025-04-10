@@ -1,0 +1,24 @@
+/* Estilos para móvil */
+nav ul {
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    background-color: #0288d1; /* Azul medio */
+    padding: 10px;
+    margin: 0;
+    list-style: none; /* Elimina los puntos de la lista */
+}
+
+nav ul li {
+    margin: 5px 0; /* Espaciado entre los elementos */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px; /* Tamaño de fuente adecuado para móvil */
+}
+
+nav ul li a:hover {
+    color: #004c8c; /* Azul más oscuro al pasar el cursor */
+}

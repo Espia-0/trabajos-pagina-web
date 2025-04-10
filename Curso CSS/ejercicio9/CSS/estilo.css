@@ -39,13 +39,13 @@ header{
     box-shadow:0.8px 16px rgba(0,0,0,0.3);
 }
 .bounce{
-    animation: bounce 0.01s infinite;
+    animation: bounce 0.001s infinite;
 }
 .slideIn{
     animation: SlideIn 1.5s ease-in-out;
 }
 .pulse{
-    animation: pulse 0.01s infinite;
+    animation: pulse 0.001s infinite;
 }
 .icono{
    font-size:40px;
