@@ -2,8 +2,9 @@
     --color-bg-blanco: #ffffff;
     --color-section-blanco: #f1f5f9;
     --color-acento-blanco: #f4655f;
-    --texto-claro-blanco: #1f2937;
+    --texto-claro-oscuro: #1f2937;
     --color-bg-oscuro: #0f172a;
+    --color-texto-claro: #1f2937; 
     --color-section-oscuro:#1e293b;
     --color-acento-oscuro:#f8fafc;
     --padding:1rem;
@@ -171,7 +172,7 @@ footer{
 body.oscuro footer{
     background: var(--color-section-oscuro);
 }
-#cambio-tema{
+imput[type='checkbox']{
     display: none;
 }
 #cambio-tema:checked ~ body{
