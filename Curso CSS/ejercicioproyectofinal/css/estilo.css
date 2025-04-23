@@ -1,0 +1,167 @@
+@layer reset, base, header, content, products, final;
+@layer reset{
+    *{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+    }
+    a{
+     text-decoration: none;
+     color: inherit;
+    }
+ }
+ @layer base{
+     :root{
+         --font-primary: ;
+         --color-bg-oscuro: #1e1d1d;
+         --color-text-oscuro: #ffffff;
+         --color-block-oscuro: rgb(243, 243, 243);
+         --color-accent-oscuro: #01ebf8;
+         --color-nav-oscuro: #5047f0;
+         --color-bg-claro:whitesmoke;
+         --color-text-claro:rgb(8, 8, 8);
+         --color-block-claro:rgb(40, 40, 40);
+         --color-accent-claro:rgb(0, 102, 255);
+         --color-nav-claro: #01ebf8;
+         --border-radius: 10px;
+     }
+     body{
+         font-family: var(--font-primary);
+         background: var(--color-bg-oscuro);
+         color: var(--color-text-oscuro);
+         line-height: 1.6;
+     }
+  }
+ @layer header{
+    header{
+        background-color: var(--color-accent-oscuro);
+        color:white;
+        padding: var(--spacing-md);
+        text-align: center;
+        font-size: 24px;
+    }
+    header nav{
+        background: var(--color-nav-oscuro);
+        margin-top:1.5rem ;
+        font-size: 20px;
+        padding: var(--spacing-lg);
+        font-weight: bold;
+    }
+    header nav a{
+        margin: 0 1rem;
+        font-weight: bold;
+    }
+  }
+    @layer content{
+    .contenido{
+        color: rgb(255, 255, 255);
+        width: 100%;
+        padding: var(--spacing-lg);
+        text-align: center;
+        padding: 3rem 1rem;
+        max-width: 1000px;
+        margin: auto;
+        font-size: 20px;
+    }
+    .servicios{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        "servicio""servicio"
+        "servicio""servicio";
+        gap:1rem;
+    }
+    .servicio{
+        background-color: var(--color-accent-oscuro);
+        padding: 1.5rem;
+        gap:1rem;
+        border-radius: var(--border-radius);
+    }
+    body.claro .servicio{
+        background: var(--color-accent-claro);
+    }
+  }
+  @layer products{
+    .tarjetas{
+    display:flex;
+    background-color: var(--color-bg);
+    padding: 10px;
+    color: white;
+    margin-bottom: 10px;
+    border:1px solid #ccc;
+    flex-wrap:wrap;
+    }
+    .tarjeta{
+        background-color: var(--color-accent-oscuro);
+        color: white;
+        padding: 15px;
+        border-radius: 15px;
+        width:300px;
+        justify-content: space-evenly;
+        text-align: center;
+        position: relative;
+        transition:transform 0.4s ease, background-color 0.4s ease;
+        margin:10px auto;
+    }
+    .tarjeta:hover{
+        transform: scale(1.03);
+        background-color: var(--color-accent-oscuro);
+    
+    }
+    .tarjeta img{
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        transition:filter 0.3s ease, border 0.3s ease;
+    }
+    .tarjeta img:hover{
+          filter:brightness(1.1);
+          border: 2px solid white;
+    }
+    .mas{
+        font-weight: bold;
+        color: #18ff1c;
+        margin-top:10px;
+        cursor: pointer;
+    }
+    .descripcion{
+        font-size: 0.9em;
+    }
+    .testimonios blockquote{
+        background: var(--color-block-oscuro);
+        padding: 1.5rem;
+        border-left: 4px solid var();
+        margin-bottom: 1rem;
+        border-radius: var(--border-radius);
+    }
+    .testimonios cite{
+        display: block;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color:#cbd5e1;
+    }
+    .btn{
+        display: inline-block;
+        background: var(--color-block-oscuro);
+        color: var(--color-accent-oscuro);
+        padding: 0.75rem 1.5rem;
+        margin-top: 1rem;
+        border-radius: var(--border-radius);
+        font-weight: bold;
+        transition: transform 0.3s, background 0.3s;
+    }
+    .btn:hover{
+        transform: scale(1.05);
+        background: #444343;
+    }
+  }
+  @layer final{
+    footer{
+        background-color: whitesmoke;
+    }
+    footer p{
+        color: #050505;
+        text-decoration: none;
+    }
+  }
