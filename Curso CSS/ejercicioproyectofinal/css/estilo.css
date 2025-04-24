@@ -1,4 +1,4 @@
-@layer reset, base, header, content, products, final;
+@layer reset, base, header, content, products, tablas, final;
 @layer reset{
     *{
      margin: 0;
@@ -59,7 +59,7 @@
         padding: var(--spacing-lg);
         text-align: center;
         padding: 3rem 1rem;
-        max-width: 1000px;
+        max-width: 1250px;
         margin: auto;
         font-size: 20px;
     }
@@ -90,6 +90,7 @@
     margin-bottom: 10px;
     border:1px solid #ccc;
     flex-wrap:wrap;
+    align-items: center;
     }
     .tarjeta{
         background-color: var(--color-accent-oscuro);
@@ -139,7 +140,7 @@
         display: block;
         margin-top: 0.5rem;
         font-size: 0.9rem;
-        color:#cbd5e1;
+        color:#202121;
     }
     .btn{
         display: inline-block;
@@ -155,6 +156,79 @@
         transform: scale(1.05);
         background: #444343;
     }
+    .logros{
+        display:flex;
+        background-color: var(--color-bg-claro);
+        justify-content: space-evenly;
+        color: var(--color-text-claro);
+        width: 100%;
+        text-align: center;
+        position: relative;
+        margin-bottom: 10px;
+        border:1px solid #ccc;
+        flex-wrap:wrap;
+        align-items: center;
+    }
+    .logro{
+        background-color: yellow;
+        color: rgb(0, 0, 0);
+        padding: 15px;
+        border-radius: 15px;
+        width:300px;
+        justify-content: space-evenly;
+        text-align: center;
+        position: relative;
+        transition:transform 0.4s ease, background-color 0.4s ease;
+        margin:10px auto;
+    }
+  }
+  @layer tablas{
+    table{
+        border-collapse: collapse;
+        width:100%;
+        text-align: center;
+    }
+    table img {
+        width: 100%;
+        max-width: 100px;
+    }
+    thead{
+        text-align: center;
+        background-color: rgb(255, 255, 255);
+    }
+    tbody{
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+    }
+    .primera{
+        width: 80%;
+        color: darkred;
+        font-size: 2em;
+        font-weight:bold;
+    }
+    .opciones{
+        background-color:#eee;
+        width:20%;
+    }
+    table h2{
+        color:var(--color-accent-oscuro)
+    }
+    table p{
+        color: var(--color-bg-oscuro);
+    }
+    li{
+        font-weight: bold;
+    }
+    ul{
+        list-style-type: none;
+    }
+    a:link{
+        text-decoration: none;
+        font-weight: bold;
+    }
+    tbody tr td h2{
+        margin-left:20px;
+    }
   }
   @layer final{
     footer{
@@ -163,5 +237,17 @@
     footer p{
         color: #050505;
         text-decoration: none;
+    }
+    footer nav{
+        background: var(--color-nav-oscuro);
+        margin-top:1.5rem;
+        font-size: 20px;
+        padding: var(--spacing-lg);
+        font-weight: bold;
+        text-align: center;
+    }
+    footer nav a{
+        margin: 0 1rem;
+        font-weight: bold;
     }
   }
