@@ -21,8 +21,6 @@
          --color-bg-claro:whitesmoke;
          --color-text-claro:rgb(8, 8, 8);
          --color-block-claro:rgb(40, 40, 40);
-         --color-accent-claro:rgb(0, 102, 255);
-         --color-nav-claro: #01ebf8;
          --border-radius: 10px;
      }
      body{
@@ -39,6 +37,9 @@
         padding: var(--spacing-md);
         text-align: center;
         font-size: 24px;
+    }
+    header img{
+        width: 100px;
     }
     header nav{
         background: var(--color-nav-oscuro);
@@ -74,6 +75,8 @@
     .servicio{
         background-color: var(--color-accent-oscuro);
         padding: 1.5rem;
+        font-size: 28px;
+        font-weight: bold;
         gap:1rem;
         border-radius: var(--border-radius);
     }
@@ -132,6 +135,7 @@
     .testimonios blockquote{
         background: var(--color-block-oscuro);
         padding: 1.5rem;
+        color: var(--color-accent-oscuro);
         border-left: 4px solid var();
         margin-bottom: 1rem;
         border-radius: var(--border-radius);
@@ -140,7 +144,7 @@
         display: block;
         margin-top: 0.5rem;
         font-size: 0.9rem;
-        color:#202121;
+        color:var(--color-text-claro);
     }
     .btn{
         display: inline-block;
@@ -178,9 +182,48 @@
         justify-content: space-evenly;
         text-align: center;
         position: relative;
-        transition:transform 0.4s ease, background-color 0.4s ease;
         margin:10px auto;
     }
+    .niveles{
+        display:flex;
+        background-color: var(--color-bg-claro);
+        padding: 10px;
+        color: #18ff1c;
+        margin-bottom: 10px;
+        border:1px solid #5047f0;
+        flex-wrap:wrap;
+        align-items: center;
+    }
+    .table{
+        text-align: center;
+        color: black;
+    }
+    .table caption{
+        background-color: #050505;
+        color: white;
+        font-size: 32px;
+    }
+    .table th{
+        background-color: whitesmoke;
+        color: black;
+    }
+    .table td{
+        background-color: #01ebf8;
+        color: #050505;
+    }
+    .imagenes{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        "imagen""imagen";
+        gap:1rem;
+        background-color: var(--color-bg);
+        padding: 10px;
+        color: white;
+        margin-bottom: 10px;
+        border:1px solid #ccc;
+        align-items: center;
+        }
   }
   @layer tablas{
     table{
