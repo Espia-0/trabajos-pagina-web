@@ -36,19 +36,19 @@
         color:white;
         padding: var(--spacing-md);
         text-align: center;
-        font-size: 20px;
+        font-size: 32px;
     }
     header p{
-        font-size: 35px;
+        font-size: 40px;
         font-weight: bold;
     }
     header img{
-        width: 100px;
+        width: 300px;
     }
     header nav{
         background: var(--color-nav-oscuro);
         margin-top:1.5rem ;
-        font-size: 30px;
+        font-size: 38px;
         padding: var(--spacing-lg);
         font-weight: bold;
     }
@@ -64,9 +64,9 @@
         padding: var(--spacing-lg);
         text-align: center;
         padding: 3rem 1rem;
-        max-width: 1250px;
+        max-width: 1200px;
         margin: auto;
-        font-size: 28px;
+        font-size: 32px;
     }
     .servicios{
         display: grid;
@@ -79,7 +79,7 @@
     .servicio{
         background-color: var(--color-nav-oscuro);
         padding: 1.5rem;
-        font-size: 28px;
+        font-size: 40px;
         font-weight: bold;
         gap:1rem;
         border-radius: var(--border-radius);
@@ -95,7 +95,7 @@
     padding: 10px;
     color: white;
     margin-bottom: 10px;
-    font-size: 28px;
+    font-size: 42px;
     border:1px solid #ccc;
     flex-wrap:wrap;
     align-items: center;
@@ -105,17 +105,17 @@
         color: white;
         padding: 15px;
         border-radius: 15px;
-        width:300px;
+        width: 320px;
         justify-content: space-evenly;
         text-align: center;
         position: relative;
-        transition:transform 0.4s ease, background-color 0.4s ease;
+        transition:transform 0.4s ease, background-color 0.4s ease, color 0.3s ease;
         margin:10px auto;
     }
     .tarjeta:hover{
         transform: scale(1.03);
+        color: var(--color-bg-oscuro);
         background-color: var(--color-accent-oscuro);
-    
     }
     .tarjeta img{
         width: 100%;
@@ -130,7 +130,7 @@
     }
     .mas{
         font-weight: bold;
-        color: var(--color-accent-oscuro);
+        color: var(--color-text-oscuro);
         margin-top:10px;
         cursor: pointer;
         transition: color 0.5s ease;
@@ -146,14 +146,20 @@
         padding: 1.5rem;
         color: var(--color-accent-oscuro);
         border-left: 4px solid var();
+        font-size: 28px;
         margin-bottom: 1rem;
         border-radius: var(--border-radius);
     }
     .testimonios cite{
         display: block;
         margin-top: 0.5rem;
+        font-size: 26px;
         font-size: 0.9rem;
         color:var(--color-text-claro);
+    }
+    .inscripcion{
+        align-items: center;
+        text-align: center;
     }
     .btn{
         display: inline-block;
@@ -161,13 +167,16 @@
         color: var(--color-accent-oscuro);
         padding: 0.75rem 1.5rem;
         margin-top: 1rem;
+        margin-bottom: 2rem;
+        font-size: 32px;
+        text-align: center;
         border-radius: var(--border-radius);
         font-weight: bold;
         transition: transform 0.3s, background 0.3s;
     }
     .btn:hover{
         transform: scale(1.05);
-        background: #444343;
+        background: var(--color-bg-oscuro);
     }
     .niveles p{
         transition: color 0.25s ease;
@@ -181,11 +190,12 @@
         justify-content: space-evenly;
         color: var(--color-text-claro);
         width: 100%;
+        font-size: 32px;
         text-align: center;
         position: relative;
         margin-bottom: 10px;
         border:1px solid #ccc;
-        flex-wrap:wrap;
+        flex-wrap: wrap;
         align-items: center;
     }
     .logro{
@@ -200,9 +210,9 @@
         margin:10px auto;
     }
     .niveles{
-        display:flex;
         background-color: var(--color-bg-claro);
         padding: 10px;
+        text-align: center;
         color: var(--color-accent-oscuro);
         margin-bottom: 10px;
         border:1px solid var(--color-nav-oscuro);
@@ -210,6 +220,7 @@
         align-items: center;
     }
     .table{
+        align-items: center;
         text-align: center;
         color: black;
     }
@@ -313,3 +324,76 @@
         font-weight: bold;
     }
   } 
+    @media (max-width:900px){
+    header{
+        font-size:24px;
+    }
+    header img{
+        width: 240px;
+    }
+    header p{
+        font-size: 30px;
+    }
+    header nav{
+        font-size: 30px;
+    }
+    .contenido{
+        font-size: 26px;
+    }
+    .servicio{
+        font-size: 28px;
+    }
+    .tarjetas{
+        font-size: 36px;
+    }
+    .testimonios blockquote{
+        font-size: 20px;
+    }
+    .testimonios cite{
+        font-size: 20px;
+    }
+    .logros{
+        font-size: 28px;
+    }
+    footer nav{
+        font-size: 24px;
+    }
+    }
+    @media (max-width:600px){
+    header{
+        font-size:16px;
+    }
+    header img{
+        width: 180px;
+    }
+    header p{
+        font-size: 24px;
+    }
+    header nav{
+        font-size: 24px;
+    }
+    .contenido{
+        font-size: 22px;
+    }
+    .servicio{
+        font-size: 24px;
+    }
+    .tarjetas{
+        font-size: 30px;
+    }
+    .testimonios blockquote{
+        font-size: 16px;
+    }
+    .testimonios cite{
+        font-size: 18px;
+    }
+    .logros{
+        font-size: 16px;
+    }
+    footer nav{
+        font-size: 20px;
+    }
+    iframe{
+        width:400px;
+    }
+    }
