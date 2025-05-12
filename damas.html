@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Juego de Damas</title>
+<style>
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #222;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+  }
+  #game {
+    width: 350px;
+    height: 350px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.9);
+    border-radius: 12px;
+    background: #3d2e1f; /* wood color */
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  /* Board squares */
+  .square {
+    width: 12.5%;  /* 100/8 */
+    height: 12.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .square.light {
+    background: #f0d9b5;
+  }
+  .square.dark {
+    background: #b58863;
+    cursor: pointer;
+    position: relative;
+  }
+  .square.highlight {
+    outline: 3px solid #4caf50;
+    outline-offset: -3px;
+  }
+  .square.capture-highlight {
+    outline: 3px solid #e53935;
+    outline-offset: -3px;
+  }
+  /* Pieces */
+  .piece {
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.4);
+    transition: transform 0.25s ease;
+    position: relative;
+    touch-action: none;
+  }
+  .piece.red {
+    background: radial-gradient(circle at 30% 30%, #ff5252, #b71c1c);
+  }
+  .piece.red.king::after {
+    content: "♔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.6em;
+    color: #fff8e1;
+    text-shadow: 1px 1px 1px #8b0000;
+  }
+  .piece.black {
+    background: radial-gradient(circle at 30% 30%, #424242, #121212);
+  }
+  .piece.black.king::after {
+    content: "♚";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.6em;
+    color: #fff8e1;
+    text-shadow: 1px 1px 1px #222;
+  }
+  /* Status and info */
+  #info {
+    color: #fff;
+    margin-top: 8px;
+    width: 350px;
+    text-align: center;
+    user-select: none;
+  }
+  #reset-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 1em;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #reset-btn:hover {
+    background-color: #388e3c;
+  }
+  /* Mobile responsive */
+  @media (max-width: 400px) {
+    #game, #info {
+      width: 98vw;
+      max-width: 350px;
+      height: 98vw;
+      max-height: 350px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <div id="game" role="grid" aria-label="Tablero de juego de damas"></div>
+  <div id="info" aria-live="polite">
+    Turno del jugador: <span id="turn">Rojo</span>
+  </div>
+  <button id="reset-btn" aria-label="Reiniciar juego">Reiniciar Juego</button>
+</div>
+
+<script>
+(() => {
+  // Constants
+  const BOARD_SIZE = 8;
+  const LIGHT = 'light';
+  const DARK = 'dark';
+  const RED = 'red';
+  const BLACK = 'black';
+
+  // Game state variables
+  let board = []; // 2D array [row][col], each cell null or {color, king}
+  let currentPlayer = RED;
+  let selectedPiece = null; // {row, col}
+  let validMoves = new Map(); // Map key: "row-col" => {captures: [{r,c}], nextJumps: [] or null}
+  let mustCapture = false;
+
+  // DOM references
+  const gameDiv = document.getElementById('game');
+  const turnSpan = document.getElementById('turn');
+  const resetBtn = document.getElementById('reset-btn');
+
+  // Initialize board structure and DOM squares
+  function initBoard() {
+    board = [];
+    gameDiv.innerHTML = '';
+    for(let r=0; r<BOARD_SIZE; r++) {
+      board[r] = new Array(BOARD_SIZE).fill(null);
+      for(let c=0; c<BOARD_SIZE; c++) {
+        const square = document.createElement('div');
+        square.classList.add('square');
+        square.classList.add(((r + c) % 2 === 0) ? LIGHT : DARK);
+        square.setAttribute('data-row', r);
+        square.setAttribute('data-col', c);
+        square.setAttribute('role', 'gridcell');
+        square.setAttribute('aria-label', `Casilla ${String.fromCharCode(65+c)}${BOARD_SIZE - r}`);
+        if (((r + c) % 2 !== 0)) {
+          square.addEventListener('click', onSquareClick);
+          square.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            onSquareClick(e);
+          }, {passive:false});
+        }
+        gameDiv.appendChild(square);
+      }
+    }
+  }
+
+  // Place initial pieces on board
+  function setupPieces() {
+    // Clear board first
+    for(let r=0; r<BOARD_SIZE; r++) {
+      for(let c=0; c<BOARD_SIZE; c++) {
+        board[r][c] = null;
+      }
+    }
+    // Place black pieces on rows 0,1,2 on dark squares
+    for(let r=0; r<3; r++) {
+      for(let c=0; c<BOARD_SIZE; c++) {
+        if ((r + c) % 2 !== 0) {
+          board[r][c] = {color: BLACK, king: false};
+        }
+      }
+    }
+    // Place red pieces on rows 5,6,7 on dark squares
+    for(let r=5; r<8; r++) {
+      for(let c=0; c<BOARD_SIZE; c++) {
+        if ((r + c) % 2 !== 0) {
+          board[r][c] = {color: RED, king: false};
+        }
+      }
+    }
+  }
+
+  // Render pieces on board
+  function renderBoard() {
+    for(let r=0; r<BOARD_SIZE; r++) {
+      for(let c=0; c<BOARD_SIZE; c++) {
+        const square = gameDiv.children[r * BOARD_SIZE + c];
+        square.innerHTML = ''; // clear piece
+        const piece = board[r][c];
+        if(piece) {
+          const pieceDiv = document.createElement('div');
+          pieceDiv.classList.add('piece');
+          pieceDiv.classList.add(piece.color);
+          if(piece.king) pieceDiv.classList.add('king');
+          square.appendChild(pieceDiv);
+        }
+        square.classList.remove('highlight', 'capture-highlight');
+      }
+    }
+  }
+
+  // Switch turn
+  function switchTurn() {
+    currentPlayer = (currentPlayer === RED) ? BLACK : RED;
+    turnSpan.textContent = currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1);
+  }
+
+  // Check if coordinate inside board
+  function inBounds(r, c) {
+    return r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE;
+  }
+
+  // Get all possible moves for current player, including captures
+  function getAllValidMoves(player) {
+    let moves = new Map();
+    let hasCaptures = false;
+    for(let r=0; r < BOARD_SIZE; r++) {
+      for(let c=0; c < BOARD_SIZE; c++) {
+        const piece = board[r][c];
+        if(piece && piece.color === player) {
+          let pieceMoves = getValidMovesForPiece(r,c,player,piece.king);
+          if (pieceMoves.size > 0) {
+            // Check if any move is capture - if yes, filter only captures
+            const captures = [...pieceMoves].filter(([_,v]) => v.captures.length > 0);
+            if(captures.length > 0) {
+              hasCaptures = true;
+              for(let [key, val] of captures) {
+                moves.set(key, val);
+              }
+            } else if(!hasCaptures) {
+              for(let [key,val] of pieceMoves) {
+                moves.set(key,val);
+              }
+            }
+          }
+        }
+      }
+    }
+    // If captures exist, remove non-capture moves
+    if(hasCaptures) {
+      for(let [key,val] of moves) {
+        if(val.captures.length === 0) {
+          moves.delete(key);
+        }
+      }
+    }
+    return moves;
+  }
+
+  // Get valid moves for piece at (r,c)
+  function getValidMovesForPiece(r, c, player, isKing) {
+    let moves = new Map();
+    let directions = [];
+    if(player === RED || isKing) {
+      directions.push([-1, -1]);
+      directions.push([-1, 1]);
+    }
+    if(player === BLACK || isKing) {
+      directions.push([1, -1]);
+      directions.push([1, 1]);
+    }
+    for(let [dr, dc] of directions) {
+      let nr = r + dr;
+      let nc = c + dc;
+      if(inBounds(nr,nc)) {
+        if(board[nr][nc] === null) {
+          // normal move
+          moves.set(`${nr}-${nc}`, {captures:[], nextJumps:null});
+        } else if (board[nr][nc].color !== player) {
+          // check jump over opponent
+          let jr = nr + dr;
+          let jc = nc + dc;
+          if(inBounds(jr,jc) && board[jr][jc] === null) {
+            // jump move with capture
+            // For multiple captures we will check next jumps recursively later
+            let nextJumps = getPossibleJumps(jr, jc, player, isKing, [{r: nr, c: nc}], [[r,c]]);
+            moves.set(`${jr}-${jc}`, {captures: [{r: nr, c: nc}], nextJumps});
+          }
+        }
+      }
+    }
+    return moves;
+  }
+
+  // Recursive function to find multiple jumps from pos (r,c)
+  // capturedSoFar = array of captured positions so far
+  // path = array of positions of piece so far to avoid cycles
+  function getPossibleJumps(r, c, player, isKing, capturedSoFar, path) {
+    let directions = [];
+    if(player === RED || isKing) {
+      directions.push([-1, -1]);
+      directions.push([-1, 1]);
+    }
+    if(player === BLACK || isKing) {
+      directions.push([1, -1]);
+      directions.push([1, 1]);
+    }
+    let jumps = null;
+    for(let [dr, dc] of directions) {
+      let nr = r + dr;
+      let nc = c + dc;
+      if(inBounds(nr,nc)) {
+        if(board[nr][nc] && board[nr][nc].color !== player && !capturedSoFar.some(pos => pos.r === nr && pos.c === nc)) {
+          let jr = nr + dr;
+          let jc = nc + dc;
+          if(inBounds(jr,jc) && board[jr][jc] === null && !path.some(pos => pos[0] === jr && pos[1] === jc)) {
+            // Extend capture path
+            let newCaptured = capturedSoFar.concat([{r: nr, c: nc}]);
+            let newPath = path.concat([[jr,jc]]);
+            let next = getPossibleJumps(jr, jc, player, isKing, newCaptured, newPath);
+            if(next && next.length > 0) {
+              if(!jumps) jumps = [];
+              for(let nj of next) {
+                jumps.push({captures: newCaptured.concat(nj.captures), nextJumps: nj.nextJumps});
+              }
+            } else {
+              if(!jumps) jumps = [];
+              jumps.push({captures: newCaptured, nextJumps: null});
+            }
+          }
+        }
+      }
+    }
+    return jumps;
+  }
+
+  // Highlight valid moves for selected piece
+  function highlightMoves() {
+    clearHighlights();
+    if(!selectedPiece) return;
+    for(let posStr of validMoves.keys()) {
+      const [r, c] = posStr.split('-').map(Number);
+      const square = gameDiv.children[r * BOARD_SIZE + c];
+      const move = validMoves.get(posStr);
+      if(move.captures.length > 0) {
+        square.classList.add('capture-highlight');
+      } else {
+        square.classList.add('highlight');
+      }
+    }
+  }
+
+  // Clear all highlights
+  function clearHighlights() {
+    for(let sq of gameDiv.children) {
+      sq.classList.remove('highlight', 'capture-highlight');
+    }
+  }
+
+  // Click or tap on square handler
+  function onSquareClick(e) {
+    if(!e.currentTarget) return;
+    const r = +e.currentTarget.getAttribute('data-row');
+    const c = +e.currentTarget.getAttribute('data-col');
+
+    const piece = board[r][c];
+
+    if(selectedPiece) {
+      // Try to move to clicked square if valid move
+      const key = `${r}-${c}`;
+      if(validMoves.has(key)) {
+        makeMove(selectedPiece.r, selectedPiece.c, r, c, validMoves.get(key));
+        return;
+      }
+      // If clicked other piece of current player, change selection
+      if(piece && piece.color === currentPlayer) {
+        selectPiece(r,c);
+      } else {
+        // invalid move, deselect
+        deselectPiece();
+      }
+    } else {
+      // No piece selected yet, only select if current player piece
+      if(piece && piece.color === currentPlayer) {
+        selectPiece(r,c);
+      }
+    }
+  }
+
+  // Select piece at (r,c)
+  function selectPiece(r,c) {
+    selectedPiece = {r,c};
+    validMoves = getValidMovesForPiece(r,c,currentPlayer, board[r][c].king);
+    // Check if must capture
+    const allMoves = getAllValidMoves(currentPlayer);
+    mustCapture = [...allMoves.values()].some(mv => mv.captures.length > 0);
+    // If must capture, filter moves without captures
+    if(mustCapture) {
+      for(let [key,val] of validMoves) {
+        if(val.captures.length === 0) validMoves.delete(key);
+      }
+      if(validMoves.size === 0) {
+        // no capture moves for this piece - deselect
+        selectedPiece = null;
+        validMoves.clear();
+      }
+    }
+    highlightMoves();
+  }
+
+  // Deselect piece
+  function deselectPiece() {
+    selectedPiece = null;
+    validMoves.clear();
+    clearHighlights();
+  }
+
+  // Execute move
+  // from (r,c) to (nr,nc), moveInfo contains captures and chained jumps info
+  function makeMove(r,c,nr,nc, moveInfo) {
+    // Move piece on board state
+    let piece = board[r][c];
+    board[nr][nc] = piece;
+    board[r][c] = null;
+    // Remove captured pieces
+    for(let cap of moveInfo.captures) {
+      board[cap.r][cap.c] = null;
+    }
+    // Check for kinging
+    if(!piece.king) {
+      if(piece.color === RED && nr === 0) piece.king = true;
+      else if(piece.color === BLACK && nr === BOARD_SIZE - 1) piece.king = true;
+    }
+    // Render board update
+    renderBoard();
+    // If there are chained jumps, prompt player to continue
+    if(moveInfo.captures.length > 0) {
+      // Need to check if more jumps possible from new pos (nr,nc)
+      const nextJumps = getValidJumpsFromPosition(nr, nc, piece.color, piece.king, moveInfo.captures);
+      if(nextJumps && nextJumps.size > 0) {
+        // Must continue jump with same piece
+        selectedPiece = {r: nr, c: nc};
+        validMoves = nextJumps;
+        mustCapture = true;
+        highlightMoves();
+        return; // don't switch turn yet
+      }
+    }
+    // No more jumps or no captures, switch turn
+    deselectPiece();
+    if (checkForWin()) {
+      setTimeout(() => {
+        alert("¡El jugador " + (currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1)) + " ha ganado!");
+        resetGame();
+      }, 100);
+      return;
+    }
+    switchTurn();
+  }
+
+  // Get valid jumps from position (r,c) - used for chained jumps
+  function getValidJumpsFromPosition(r,c,player,isKing, alreadyCaptured) {
+    let moves = new Map();
+    let directions = [];
+    if(player === RED || isKing) {
+      directions.push([-1, -1]);
+      directions.push([-1, 1]);
+    }
+    if(player === BLACK || isKing) {
+      directions.push([1, -1]);
+      directions.push([1, 1]);
+    }
+    for(let [dr, dc] of directions) {
+      let nr = r + dr;
+      let nc = c + dc;
+      if(inBounds(nr,nc)) {
+        if(board[nr][nc] && board[nr][nc].color !== player && !alreadyCaptured.some(pos => pos.r === nr && pos.c === nc)) {
+          let jr = nr + dr;
+          let jc = nc + dc;
+          if(inBounds(jr,jc) && board[jr][jc] === null) {
+            moves.set(`${jr}-${jc}`, {captures: alreadyCaptured.concat([{r: nr, c: nc}]), nextJumps: null});
+          }
+        }
+      }
+    }
+    return moves;
+  }
+
+  // Check win condition - no moves for opponent or no pieces left
+  function checkForWin() {
+    const opponent = (currentPlayer === RED) ? BLACK : RED;
+    // Check if opponent has any pieces
+    let opponentPieces = 0;
+    for(let r=0; r<BOARD_SIZE; r++) {
+      for(let c=0; c<BOARD_SIZE; c++) {
+        if(board[r][c] && board[r][c].color === opponent) opponentPieces++;
+      }
+    }
+    if(opponentPieces === 0) return true;
+
+    // Check if opponent has any valid moves
+    let oppMoves = getAllValidMoves(opponent);
+    if(oppMoves.size === 0) return true;
+
+    return false;
+  }
+
+  // Reset game to initial state
+  function resetGame() {
+    selectedPiece = null;
+    validMoves.clear();
+    mustCapture = false;
+    currentPlayer = RED;
+    turnSpan.textContent = "Rojo";
+    initBoard();
+    setupPieces();
+    renderBoard();
+  }
+
+  // Initialization
+  resetGame();
+
+  // Reset button event
+  resetBtn.addEventListener('click', () => {
+    resetGame();
+  });
+})();
+</script>
+
+</body>
+</html>
+
