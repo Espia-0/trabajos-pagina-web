@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Online</title>
+  <style>
+    :root {
+      --primary: #fff;
+      --secondary: #ffffff;
+      --accent: #04ff00;
+      --accent-invertido: #0909c6;
+      --background: rgb(39, 177, 39);
+      --background-inverso: linear-gradient(135deg, #000000, #09b74c);
+      --card-bg: rgba(255, 255, 255, 0.10);
+      --radius: 12px;
+      --shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      --transition: all 0.35s ease;
+      --font-family: 'Poppins', sans-serif;
+
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: url(../../ejercicio5/img/food.jpg);
+      color: var(--secondary);
+      margin: 0;
+      padding: 0;
+    }
+
+    .tienda-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .producto-card {
+      background: var(--background);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .producto-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .producto-image {
+      height: 300px;
+      background-color: #e0e0e0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .producto-info {
+      padding: 1.5rem;
+    }
+
+    .producto-titulo {
+      font-size: 1.4rem;
+      margin: 0 0 0.5rem;
+      color: var(--primary);
+    }
+
+    .producto-precio {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-shadow: #333 2px 2px 5px;
+    }
+
+    .producto-descripcion {
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .compra-btn {
+      background: var(--accent);
+      color: var(--secondary);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .compra-btn:hover {
+      background: var(--accent-invertido);
+    }
+
+    /* Formulario de pago */
+    .pago-form-container {
+      display: none;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: var(--background);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .pago-form h2 {
+      color: var(--accent);
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-grupo {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .submit-pago {
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: var(--transition);
+    }
+
+    .submit-pago:hover {
+      background: var(--accent-invertido);
+    }
+
+    .gracias {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--accent), #c9a33b);
+      color: var(--primary);
+      border-radius: var(--radius);
+      margin-top: 2rem;
+      font-size: 1.2rem;
+    }
+
+    .obligatorio {
+      color: var(--accent);
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tienda-container">
+    <h1>Nuestros Productos</h1>
+    <div class="productos">
+      <!-- Producto 1 -->
+      <div class="producto-card">
+        <div class="producto-image" style="background-image: url('../../ejercicio5/img/pizza.jpg');"></div>
+        <div class="producto-info">
+          <h3 class="producto-titulo">pizza</h3>
+          <div class="producto-precio">19,30€ </div>
+          <p class="producto-descripcion">
+            Pizza de tamaño medio perfecta pa zampar en una noche con unas ricas verduras</p>
+          <button class="compra-btn" data-product="pizza" data-price="19,30">Comprar</button>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="producto-card">
+        <div class="producto-image" style="background-image: url('../../ejercicio5/img/frut.jpg');"></div>
+        <div class="producto-info">
+          <h3 class="producto-titulo">frutas variadas</h3>
+          <div class="producto-precio">21,23 €</div>
+          <p class="producto-descripcion"> conjunto de frutas variadas que estan deliciosas jutnas </p>
+          <button class="compra-btn" data-product="frutas" data-price="21,23">Comprar</button>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="producto-card">
+        <div class="producto-image" style="background-image: url('../../ejercicio5/img/hamburger.png');"></div>
+        <div class="producto-info">
+          <h3 class="producto-titulo">hamburguesa</h3>
+          <div class="producto-precio">8,20€</div>
+          <p class="producto-descripcion">
+            una hamburguesa que es perfecta ya sea pa empezar el dia o para finalizarlo</p>
+          <button class="compra-btn" data-product="hamburguer" data-price="8,20">Comprar</button>
+        </div>
+      </div>
+    <!-- Producto 4 -->
+      <div class="producto-card">
+        <div class="producto-image" style="background-image: url('../../ejercicio5/img/spagheti.png');"></div>
+        <div class="producto-info">
+          <h3 class="producto-titulo">spaghethi</h3>
+          <div class="producto-precio">14,99€</div>
+          <p class="producto-descripcion">
+            un increible plato italiano plato mediano pa comer una buena tarde</p>
+          <button class="compra-btn" data-product="spaghethi" data-price="14,99">Comprar</button>
+        </div>
+      </div>
+    <!-- Producto 5 -->
+      <div class="producto-card">
+        <div class="producto-image" style="background-image: url('../../ejercicio5/img/patata.jpg');"></div>
+        <div class="producto-info">
+          <h3 class="producto-titulo">patatas cubicas</h3>
+          <div class="producto-precio">6,99€</div>
+          <p class="producto-descripcion">
+            un acompañamiento de tus platos favoritos combina con casi toda la comida un buen segundo pa disfrutar</p>
+          <button class="compra-btn" data-product="patatas" data-price="6,99">Comprar</button>
+        </div>
+      </div>
+    <!-- Producto 6 -->
+      <div class="producto-card">
+        <div class="producto-image" style="background-image: url('../../ejercicio5/img/ensalada.jpg');"></div>
+        <div class="producto-info">
+          <h3 class="producto-titulo">ensalada normal</h3>
+          <div class="producto-precio">5,99€</div>
+          <p class="producto-descripcion">
+            un plato perfecto con verduras bien elaboradas y listo para ser comido en cualquier plato </p>
+          <button class="compra-btn" data-product="ensalada" data-price="5,99">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Formulario de pago (oculto inicialmente) -->
+    <div id="pagoForm" class="pago-form-container">
+      <h2>Completa tu Compra</h2>
+      <form id="compraForm">
+        <input type="hidden" id="productoseleccionado" name="producto">
+        <input type="hidden" id="precioseleccionado" name="precio">
+
+        <div class="form-row">
+          <div class="form-grupo">
+            <label for="NombreCompleto">Nombre completo <span class="obligatorio">*</span></label>
+            <input type="text" id="NombreCompleto" name="NombreCompleto" required>
+          </div>
+          <div class="form-grupo">
+            <label for="email">Correo electrónico <span class="obligatorio">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label for="direccion">Dirección <span class="obligatorio">*</span></label>
+          <input type="text" id="direccion" name="direccion" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-grupo">
+            <label for="ciudad">Ciudad <span class="obligatorio">*</span></label>
+            <input type="text" id="ciudad" name="ciudad" required>
+          </div>
+          <div class="form-grupo">
+            <label for="codpost">Código Postal <span class="obligatorio">*</span></label>
+            <input type="text" id="codpost" name="codpost" required>
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label for="tarjeta">Número de tarjeta <span class="obligatorio">*</span></label>
+          <input type="text" id="tarjeta" name="tarjeta" placeholder="1234 5678 9012 3456" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-grupo">
+            <label for="fec_expira">Fecha de expiración <span class="obligatorio">*</span></label>
+            <input type="text" id="fec_expira" name="fec_expira" placeholder="MM/AA" required>
+          </div>
+          <div class="form-grupo">
+            <label for="cvv">CVV <span class="obligatorio">*</span></label>
+            <input type="text" id="cvv" name="cvv" placeholder="123" required>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-pago">Confirmar Pago</button>
+      </form>
+    </div>
+
+    <div id="Gracias_gracias" class="gracias">
+      <h2>¡Gracias por tu compra!</h2>
+      <p>Hemos enviado los detalles de tu pedido a tu correo electrónico.</p>
+    </div>
+  </div>
+
+  <!-- EmailJS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    // Inicializar EmailJS
+    (function () {
+      emailjs.init('YOUR_USER_ID'); // Reemplaza con tu User ID
+    })();
+
+    // Mostrar formulario de pago al hacer clic en comprar
+    document.querySelectorAll('.compra-btn').forEach(button => {
+      button.addEventListener('click', function () {
+        const producto = this.getAttribute('data-product');
+        const precio = this.getAttribute('data-price');
+
+        document.getElementById('productoseleccionado').value = producto;
+        document.getElementById('precioseleccionado').value = precio;
+
+        document.querySelector('.productos').style.display = 'none';
+        document.getElementById('pagoForm').style.display = 'block';
+      });
+    });
+
+    // Enviar formulario de pago
+    document.getElementById('compraForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = {
+        producto: document.getElementById('productoseleccionado').value,
+        precio: document.getElementById('precioseleccionado').value,
+        nombre: document.getElementById('NombreCompleto').value,
+        email: document.getElementById('email').value,
+        direccion: document.getElementById('direccion').value,
+        ciudad: document.getElementById('ciudad').value,
+        codpost: document.getElementById('codpost').value
+      };
+
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+        to_email: formData.email,
+        subject: 'Confirmación de compra - ' + formData.producto,
+        message: `
+                Gracias por tu compra!
+                
+                Detalles del pedido:
+                Producto: ${formData.producto}
+                Precio: $${formData.precio}
+                
+                Dirección de envío:
+                ${formData.nombre}
+                ${formData.direccion}
+                ${formData.ciudad}, ${formData.codpost}
+                
+                Tu pedido será procesado y enviado en 1-2 días hábiles.
+            `
+      })
+        .then(function (response) {
+          console.log('Exito!', response.status, response.text);
+          document.getElementById('pagoForm').style.display = 'none';
+          document.getElementById('Gracias_gracias').style.display = 'block';
+        }, function (error) {
+          console.log('FALLO!...', error);
+          alert('Error al procesar el pago. Por favor, inténtalo de nuevo.');
+        });
+    });
+  </script>
+</body>
+
+</html>
